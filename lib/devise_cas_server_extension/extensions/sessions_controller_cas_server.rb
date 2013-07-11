@@ -102,8 +102,6 @@ module DeviseCasServerExtension
           logger.info("Proceeding with CAS login without a target service.")
         end
 
-        # Clear tgt cookie
-        request.delete_cookie 'tgt'
         set_login_ticket
       end
 
@@ -119,18 +117,12 @@ module DeviseCasServerExtension
       end
 
       def service_validate
-        # Force xml response
+        # TODO: Force xml response
         @response = Devise::Models::ServiceTicket.validate(params['ticket'],
           Devise::Models::ServiceTicket.clean_service_url(params['service'])
           )
 
          render :template => 'devise/sessions/service_validate.builder', :layout => false
-#        render :xml => @response, :status => @response.status
-#        xml = @response.to_xml
-#        logger.info "XML response "+xml
-#        render :raw => @response.to_xml, :content_type => "application/xml",
-#          :status => @response.status
-#        return
       end
 
       def set_login_ticket
