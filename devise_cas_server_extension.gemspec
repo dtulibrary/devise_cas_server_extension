@@ -15,5 +15,5 @@ DESC
   spec.has_rdoc = false
   spec.license = 'GPL-2'
   spec.required_ruby_version = '>= 1.9.2'
-  spec.version = '1.0.1'
+  spec.version = '1.0.2'
 end
