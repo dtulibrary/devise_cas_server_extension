@@ -8,6 +8,8 @@ ActionDispatch::Routing::Mapper.class_eval do
     def devise_cas_server(mapping, controllers)
       get "serviceValidate",
         :to => "#{controllers[:sessions]}#service_validate"
+      get "proxyValidate",
+        :to => "#{controllers[:sessions]}#service_validate"
     end
 
   #end
