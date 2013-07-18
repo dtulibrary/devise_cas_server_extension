@@ -63,7 +63,8 @@ module DeviseCasServerExtension
       end
 
       def handle_cas_login_ticket
-        session['cas_server_service'] = Devise::Models::ServiceTicket.clean_service_url(params['service'])
+        clean_url = Devise::Models::ServiceTicket.clean_service_url(params['service'])
+        session['cas_server_service'] = clean_url unless clean_url.nil?
         @gateway = params['gateway'] == 'true' || params['gateway'] == '1'
 
         if tgc = request.cookies['tgt']
@@ -80,7 +81,7 @@ module DeviseCasServerExtension
 
         # TODO: Can we capture a redirection loop?
         if session['cas_server_service']
-          if tr.granting_ticket
+          if tr && tr.granting_ticket
             logger.debug("Valid ticket granting ticket detected.")
             url = create_service_url(tr.granting_ticket)
             logger.info("User '#{tgt.username}' authenticated based on ticket granting cookie. Redirecting to service '#{session['cas_server_service']}'.")
