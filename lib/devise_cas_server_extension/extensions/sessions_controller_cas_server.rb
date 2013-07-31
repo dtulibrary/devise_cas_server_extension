@@ -84,7 +84,7 @@ module DeviseCasServerExtension
           if tr && tr.granting_ticket
             logger.debug("Valid ticket granting ticket detected.")
             url = create_service_url(tr.granting_ticket)
-            logger.info("User '#{tgt.username}' authenticated based on ticket granting cookie. Redirecting to service '#{session['cas_server_service']}'.")
+            logger.info("User '#{tr.granting_ticket.username}' authenticated based on ticket granting cookie. Redirecting to service '#{session['cas_server_service']}'.")
             # response code 303 means "See Other"
             # (see Appendix B in CAS Protocol spec)
             redirect_to url, :status => 303 if url
