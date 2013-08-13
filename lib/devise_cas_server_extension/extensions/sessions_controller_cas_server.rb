@@ -16,6 +16,16 @@ module DeviseCasServerExtension
         @renew = params['renew']
       end
 
+      def after_sign_out_path_for(resource_or_scope)
+        if cookies[:tgt]
+          tgt = Devise::Models::TicketGrantingTicket.find_by_ticket(cookies[:tgt])
+          tgt && tgt.destroy
+        end
+        cookies.delete :tgt
+
+        params[:service] || (respond_to?(:root_path) ? root_path : "/")
+      end
+
       def after_sign_in_path_for(resource)
         tgt = nil
         if tgc = request.cookies['tgt']
