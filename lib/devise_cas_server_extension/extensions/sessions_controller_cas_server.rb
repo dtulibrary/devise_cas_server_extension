@@ -49,6 +49,7 @@ module DeviseCasServerExtension
           logger.info("Successfully authenticated user '#{tgt.username}' at '#{tgt.client_hostname}'. No service param was given, so we will not redirect.")
         else
           url = create_service_url(tgt)
+          session['cas_server_service'] = nil
         end
         url || stored_location_for(resource) || signed_in_root_path(resource)
       end
