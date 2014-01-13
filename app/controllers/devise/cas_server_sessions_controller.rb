@@ -6,7 +6,8 @@ class Devise::CasServerSessionsController < Devise::SessionsController
   before_filter :verify_cas_login_ticket, :only => [:create]
 
   def renew_session
-    logger.info "Check renew session"
+    # TODO: If renew is set, the session should be cleared for all CAS related
+    #       and authentication should be required again.
     @renew = params['renew']
   end
 
