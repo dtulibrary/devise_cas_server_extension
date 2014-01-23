@@ -27,16 +27,16 @@ module Devise
         elsif lt = find_by_ticket(ticket)
           if lt.consumed?
             tr.set_error 500, 'login_ticket_already_used'
-            logger.warn "Login ticket '#{ticket}' previously used up"
+            logger.info "Login ticket '#{ticket}' previously used up"
           elsif Time.now - lt.created_at < Devise.cas_server_maximum_unused_login_ticket_lifetime
             logger.info "Login ticket '#{ticket}' successfully validated"
           else
             tr.set_error 500, 'login_ticket_expired'
-            logger.warn "Expired login ticket '#{ticket}'"
+            logger.info "Expired login ticket '#{ticket}'"
           end
         else
           tr.set_error 500, 'login_ticket_invalid'
-          logger.warn "Invalid login ticket '#{ticket}'"
+          logger.info "Invalid login ticket '#{ticket}'"
         end
         lt.consume! if lt && !lt.consumed?
         tr

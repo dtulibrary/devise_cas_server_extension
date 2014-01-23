@@ -30,17 +30,17 @@ module Devise
         #logger.info "Time #{config.cas_server_maximum_unused_service_ticket_lifetime}"
         if service.nil? or ticket.nil?
           tr.set_error 500, 'service_ticket_incorrect_request'
-          logger.warn "Ticket or service parameter was missing in the request."
+          logger.info "Ticket or service parameter was missing in the request."
         elsif st = find_by_ticket(ticket)
           if st.consumed?
             tr.set_error 500, 'service_ticket_already_used'
-            logger.warn "Ticket '#{ticket}' has already been used up."
+            logger.info "Ticket '#{ticket}' has already been used up."
           elsif Time.now - st.created_at > Devise.cas_server_maximum_unused_service_ticket_lifetime
             tr.set_error 500, 'service_ticket_expired'
-            logger.warn "Ticket '#{ticket}' has expired."
+            logger.info "Ticket '#{ticket}' has expired."
           elsif !st.matches_service? service
             tr.set_error 500, 'service_ticket_no_match'
-            logger.warn "The ticket '#{ticket}' belonging to user "+
+            logger.info "The ticket '#{ticket}' belonging to user "+
               "'#{st.ticket_granting_ticket.username}' is valid, but the requested service "+
               "'#{service}' does not match the service '#{st.service}'"+
               " associated with this ticket."
@@ -50,7 +50,7 @@ module Devise
           end
         else
           tr.set_error  500, 'service_ticket_invalid'
-          logger.warn "Ticket '#{ticket}' not recognized."
+          logger.info "Ticket '#{ticket}' not recognized."
         end
 
         st.consume! if st && !st.consumed?
