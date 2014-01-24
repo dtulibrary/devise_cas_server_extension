@@ -13,6 +13,8 @@ ActionDispatch::Routing::Mapper.class_eval do
       #match :destroy, :path => mapping.path_names[:sign_out], :as => "destroy"
       get "serviceValidate",
         :to => "#{controllers[:sessions]}#service_validate"
+      get "validate",
+        :to => "#{controllers[:sessions]}#validate"
       get "proxyValidate",
         :to => "#{controllers[:sessions]}#service_validate"
     end

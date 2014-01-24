@@ -133,6 +133,14 @@ class Devise::CasServerSessionsController < Devise::SessionsController
     end
   end
 
+  def validate
+    @response = Devise::Models::ServiceTicket.validate(params['ticket'],
+      Devise::Models::ServiceTicket.clean_service_url(params['service'])
+      )
+     render :template => 'devise/sessions/service_validate.text.erb',
+       :layout => false
+  end
+
   def service_validate
     # TODO: Force xml response
     @response = Devise::Models::ServiceTicket.validate(params['ticket'],
