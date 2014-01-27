@@ -137,7 +137,7 @@ class Devise::CasServerSessionsController < Devise::SessionsController
     @response = Devise::Models::ServiceTicket.validate(params['ticket'],
       Devise::Models::ServiceTicket.clean_service_url(params['service'])
       )
-     render :template => 'devise/sessions/service_validate.text.erb',
+     render :template => 'devise/sessions/validate.text.erb',
        :layout => false
   end
 
