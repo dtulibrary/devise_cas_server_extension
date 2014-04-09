@@ -2,8 +2,8 @@
 require 'rake'
 Gem::Specification.new do |spec|
   spec.name = 'devise_cas_server_extension'
-  spec.version = '1.0.9'
-  spec.authors = [ 'Morten Rønne' ]
+  spec.version = '1.1.10'
+  spec.authors = [ 'Steffen Elberg Godskesen' ]
   spec.add_runtime_dependency ('devise')
   spec.add_development_dependency('rspec')
   spec.summary = 'Devise CAS server extension'
