@@ -146,8 +146,7 @@ module Devise
           @response = Devise::Models::ServiceTicket.validate(params['ticket'],
             Devise::Models::ServiceTicket.clean_service_url(params['service'])
           )
-          render :template => 'devise/sessions/validate.text.erb',
-          :layout => false
+          render 'validate', :formats => [:text]
         end
 
         def service_validate
@@ -156,8 +155,7 @@ module Devise
             Devise::Models::ServiceTicket.clean_service_url(params['service'])
           )
 
-          render :template => 'devise/sessions/service_validate.builder',
-          :layout => false
+          render 'service_validate', :formats => [:xml]
         end
 
         def set_login_ticket
