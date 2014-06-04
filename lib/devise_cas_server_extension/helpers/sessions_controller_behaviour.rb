@@ -39,7 +39,7 @@ module Devise
           end
           unless tgt
             tgt = Devise::Models::TicketGrantingTicket.create(
-              { username: resource.id,
+              { username: resource.cas_username,
                 client_hostname: request.remote_ip })
             response.set_cookie('tgt', tgt.to_s)
           end
